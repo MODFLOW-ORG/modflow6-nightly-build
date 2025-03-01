@@ -1,5 +1,5 @@
 https://github.com/modflowpy/flopy/archive/develop.zip
-https://github.com/MODFLOW-USGS/modflow-devtools/archive/develop.zip
+https://github.com/MODFLOW-ORG/modflow-devtools/archive/develop.zip
 flopy[test, optional]
 meson!=0.63.0
 mfpymake

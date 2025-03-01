@@ -47,7 +47,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          repository: MODFLOW-USGS/modflow6-nightly-build
+          repository: MODFLOW-ORG/modflow6-nightly-build
 
       - name: Checkout modflow6
         uses: actions/checkout@v4
@@ -73,7 +73,7 @@ jobs:
   make_dist:
     name: Make development distribution
     needs: get_version
-    uses: MODFLOW-USGS/modflow6/.github/workflows/release.yml@develop
+    uses: MODFLOW-ORG/modflow6/.github/workflows/release.yml@develop
     with:
       approve: false
       branch: develop

@@ -2,11 +2,11 @@
 
 Nightly development build of MODFLOW 6.
 
-[![Latest tag](https://img.shields.io/github/tag/MODFLOW-USGS/modflow6-nightly-build.svg)](https://github.com/MODFLOW-USGS/modflow6-nightly-build/tags/latest)
-[![MODFLOW 6 nightly build](https://github.com/MODFLOW-USGS/modflow6-nightly-build/actions/workflows/nightly-build.yml/badge.svg)](https://github.com/MODFLOW-USGS/modflow6-nightly-build/actions/workflows/nightly-build.yml)
-[![MODFLOW 6 full distribution test](https://github.com/MODFLOW-USGS/modflow6-nightly-build/actions/workflows/full-dist-test.yml/badge.svg)](https://github.com/MODFLOW-USGS/modflow6-nightly-build/actions/workflows/full-dist-test.yml)
+[![Latest tag](https://img.shields.io/github/tag/MODFLOW-ORG/modflow6-nightly-build.svg)](https://github.com/MODFLOW-ORG/modflow6-nightly-build/tags/latest)
+[![MODFLOW 6 nightly build](https://github.com/MODFLOW-ORG/modflow6-nightly-build/actions/workflows/nightly-build.yml/badge.svg)](https://github.com/MODFLOW-ORG/modflow6-nightly-build/actions/workflows/nightly-build.yml)
+[![MODFLOW 6 full distribution test](https://github.com/MODFLOW-ORG/modflow6-nightly-build/actions/workflows/full-dist-test.yml/badge.svg)](https://github.com/MODFLOW-ORG/modflow6-nightly-build/actions/workflows/full-dist-test.yml)
 
-The `develop` branch of the [MODFLOW 6 repository](https://github.com/MODFLOW-USGS/modflow6) contains bug fixes and new functionality that may be incorporated into the next [approved MODFLOW 6 release](https://www.usgs.gov/software/modflow-6-usgs-modular-hydrologic-model). Minimal development distributions are posted regularly to [nightly build repository](https://github.com/MODFLOW-USGS/modflow6-nightly-build/releases/latest) &mdash; these should be considered preliminary, provisional release candidates for the next version of MODFLOW 6.
+The `develop` branch of the [MODFLOW 6 repository](https://github.com/MODFLOW-ORG/modflow6) contains bug fixes and new functionality that may be incorporated into the next [approved MODFLOW 6 release](https://www.usgs.gov/software/modflow-6-usgs-modular-hydrologic-model). Minimal development distributions are posted regularly to [nightly build repository](https://github.com/MODFLOW-ORG/modflow6-nightly-build/releases/latest) &mdash; these should be considered preliminary, provisional release candidates for the next version of MODFLOW 6.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -22,13 +22,13 @@ The `develop` branch of the [MODFLOW 6 repository](https://github.com/MODFLOW-US
 
 ## Distribution contents
 
-The nightly builds are available as operating-system specific [distributions](https://github.com/MODFLOW-USGS/modflow6-nightly-build/releases/latest) including binaries, MODFLOW 6 input/output documentation, development notes, and a `code.json` metadata file. 
+The nightly builds are available as operating-system specific [distributions](https://github.com/MODFLOW-ORG/modflow6-nightly-build/releases/latest) including binaries, MODFLOW 6 input/output documentation, development notes, and a `code.json` metadata file. 
 
 ### Binaries
 
 The binaries are built in develop mode.
 
-Linux binaries built on Ubuntu 22.04 may encounter `libc`-related backwards-incompatibilities on earlier versions of Ubuntu or other Linux distributions. This distribution, the main MODFLOW 6 distribution, and the [`MODFLOW-USGS/executables`](https://github.com/MODFLOW-USGS/executables/releases) distribution are built on Ubuntu 20.04 for broader compatibility.
+Linux binaries built on Ubuntu 22.04 may encounter `libc`-related backwards-incompatibilities on earlier versions of Ubuntu or other Linux distributions. This distribution, the main MODFLOW 6 distribution, and the [`MODFLOW-ORG/executables`](https://github.com/MODFLOW-ORG/executables/releases) distribution are built on Ubuntu 20.04 for broader compatibility.
 
 ### Documentation
 
@@ -40,7 +40,7 @@ Release tags are based on the date, with format `YYYYMMDD`. Nightly builds are r
 
 ## Reporting issues
 
-Any issues with the nightly build should be posted on the main [MODFLOW 6 GitHub repo](https://github.com/MODFLOW-USGS/modflow6) and flagged with the [nightly build](https://github.com/MODFLOW-USGS/modflow6/labels/nightly%20build) label.
+Any issues with the nightly build should be posted on the main [MODFLOW 6 GitHub repo](https://github.com/MODFLOW-ORG/modflow6) and flagged with the [nightly build](https://github.com/MODFLOW-ORG/modflow6/labels/nightly%20build) label.
 
 
 ## Disclaimer
