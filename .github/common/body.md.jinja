@@ -1,0 +1,18 @@
+MODFLOW 6 development build, {{ date }}.
+
+{% for section_key, section_items in items|groupby("section") %}
+{% set section = sections[section_key]|title %}
+## {{ section }}
+
+{% for subsection_key, subsection_items in section_items|groupby("subsection") %}
+{% set subsection = subsections[subsection_key]|title %}
+{% if subsection|length > 0 %}
+### {{ subsection }}
+{% endif %}
+
+{% for item in subsection_items %}
+- {{ item.description }}
+{% endfor %}
+
+{% endfor %}
+{% endfor %}

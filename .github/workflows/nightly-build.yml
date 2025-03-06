@@ -95,6 +95,25 @@ jobs:
     if: github.event_name != 'pull_request'
     steps:
 
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          repository: MODFLOW-ORG/modflow6-nightly-build
+
+      - name: Checkout modflow6
+        uses: actions/checkout@v4
+        with:
+          repository: MODFLOW-ORG/modflow6
+          path: modflow6
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
       - name: Delete Older Releases
         uses: dev-drprasad/delete-older-releases@v0.3.4
         with:
@@ -138,12 +157,16 @@ jobs:
           F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
         run: echo $TIME $F_TIME
 
+      - name: Make body
+        id: make-body
+        run: python .github/common/make_body.py modflow6/doc/ReleaseNotes/develop.toml body.md
+
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.current-time.outputs.formattedTime }}
           name: ${{ steps.current-time.outputs.formattedTime }} development build
-          body: "MODFLOW 6 development build."
+          bodyFile: body.md
           draft: false
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
