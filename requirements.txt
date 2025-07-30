@@ -1,5 +1,5 @@
 git+https://github.com/modflowpy/flopy.git
-git+https://github.com/MODFLOW-ORG/modflow-devtools.git
+modflow-devtools==1.7.0
 flopy[test, optional]
 meson!=0.63.0
 mfpymake
