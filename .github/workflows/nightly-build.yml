@@ -71,15 +71,13 @@ jobs:
           echo "version=${ver}" >> "$GITHUB_OUTPUT"
 
   make_dist:
-    name: Make development distribution
+    name: Make developmode distribution
     needs: get_version
     uses: MODFLOW-ORG/modflow6/.github/workflows/release.yml@develop
     with:
-      approve: false
       branch: develop
-      developmode: true
-      full: false
-      run_tests: false
+      releasemode: false
+      run_tests: true
       version: ${{ needs.get_version.outputs.version }}
 
   release:
