@@ -26,9 +26,7 @@ The nightly builds are available as operating-system specific [distributions](ht
 
 ### Binaries
 
-The binaries are built in develop mode.
-
-Linux binaries built on Ubuntu 22.04 may encounter `libc`-related backwards-incompatibilities on earlier versions of Ubuntu or other Linux distributions. This distribution, the main MODFLOW 6 distribution, and the [`MODFLOW-ORG/executables`](https://github.com/MODFLOW-ORG/executables/releases) distribution are built on Ubuntu 20.04 for broader compatibility.
+Binaries include `mf6`, `mf5to6`, and `zbud6` executables, and the `libmf6` library. The binaries are built in develop mode, making development options available.
 
 ### Documentation
 
@@ -41,7 +39,6 @@ Release tags are based on the date, with format `YYYYMMDD`. Nightly builds are r
 ## Reporting issues
 
 Any issues with the nightly build should be posted on the main [MODFLOW 6 GitHub repo](https://github.com/MODFLOW-ORG/modflow6) and flagged with the [nightly build](https://github.com/MODFLOW-ORG/modflow6/labels/nightly%20build) label.
-
 
 ## Disclaimer
 
