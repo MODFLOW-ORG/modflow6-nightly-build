@@ -6,3 +6,4 @@ mfpymake
 ninja
 tomli
 Jinja2
+pytest
