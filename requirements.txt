@@ -8,3 +8,4 @@ tomli
 Jinja2
 pytest
 PyYAML
+filelock
