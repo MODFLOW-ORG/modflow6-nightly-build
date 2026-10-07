@@ -1,18 +1,22 @@
 MODFLOW 6 development build, {{ date }}.
 
-{% for section_key, section_items in items|groupby("section") %}
-{% set section = sections[section_key]|title %}
-## {{ section }}
+{% for section_key, section_name in sections.items() %}
+{% set section_items = items|selectattr("section", "equalto", section_key)|list %}
+{% if section_items %}
+## {{ section_name|title }}
 
-{% for subsection_key, subsection_items in section_items|groupby("subsection") %}
-{% set subsection = subsections[subsection_key]|title %}
-{% if subsection|length > 0 %}
-### {{ subsection }}
+{% for subsection_key, subsection_name in subsections.items() %}
+{% set subsection_items = section_items|selectattr("subsection", "equalto", subsection_key)|list %}
+{% if subsection_items %}
+{% if subsection_name|length > 0 %}
+### {{ subsection_name|title }}
+
 {% endif %}
-
 {% for item in subsection_items %}
 - {{ item.description }}
 {% endfor %}
 
+{% endif %}
 {% endfor %}
+{% endif %}
 {% endfor %}

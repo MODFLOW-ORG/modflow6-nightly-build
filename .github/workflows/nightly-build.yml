@@ -157,7 +157,7 @@ jobs:
 
       - name: Make body
         id: make-body
-        run: python .github/common/make_body.py modflow6/doc/ReleaseNotes/develop.toml body.md
+        run: python .github/common/make_body.py modflow6/doc/ReleaseNotes body.md
 
       - name: Create release
         uses: ncipollo/release-action@v1
