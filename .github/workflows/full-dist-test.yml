@@ -51,7 +51,7 @@ jobs:
         working-directory: modflow6/distribution
         id: get_version
         run: |
-          ver=$(python update_version.py -g)
+          ver=$(python update_version.py -g --release)
           echo "version=${ver}" >> "$GITHUB_OUTPUT"
 
   make_dist:
