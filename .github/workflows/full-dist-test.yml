@@ -17,6 +17,12 @@ on:
   # workflow_dispatch trigger to start release via GitHub UI or CLI,
   # see https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
+    inputs:
+      patch:
+        description: 'Simulate a patch release (next patch version after the latest release) instead of the next minor release.'
+        required: false
+        type: boolean
+        default: false
 jobs:
   get_version:
     name: Get current version
@@ -26,6 +32,7 @@ jobs:
         shell: bash -l {0}
     outputs:
       version: ${{ steps.get_version.outputs.version }}
+      doi: ${{ steps.get_doi.outputs.doi }}
     steps:
 
       - name: Checkout repo
@@ -51,8 +58,30 @@ jobs:
         working-directory: modflow6/distribution
         id: get_version
         run: |
-          ver=$(python update_version.py -g --release)
+          if [[ "${{ inputs.patch }}" == "true" ]]; then
+            # next patch version after the latest release, e.g. 6.8.1 -> 6.8.2
+            latest=$(python -c "import sys; sys.path.insert(0, '../doc/ReleaseNotes'); from release_history import latest_release; print(latest_release()[0])")
+            ver=$(python -c "from packaging.version import Version; v = Version('$latest'); print(f'{v.major}.{v.minor}.{v.micro + 1}')")
+          else
+            # next minor release, i.e. the current development version without
+            # its development segment, e.g. 6.9.0.dev0 -> 6.9.0
+            ver=$(python update_version.py -g --release)
+          fi
           echo "version=${ver}" >> "$GITHUB_OUTPUT"
+
+      - name: Get DOI
+        if: inputs.patch != true
+        working-directory: modflow6/doc/ReleaseNotes
+        id: get_doi
+        run: |
+          # a new minor release needs a DOI for the release history in the
+          # release notes. reuse the latest release's DOI as a stand-in. in an
+          # actual minor release, the DOI is not reused; the release is given a
+          # new DOI, passed to the release workflow when the release is started.
+          # a patch release reuses the DOI of its minor release automatically,
+          # so this step is skipped when simulating one.
+          doi=$(python -c "from release_history import find_release, latest_release; print(find_release(latest_release()[0])[1])")
+          echo "doi=${doi}" >> "$GITHUB_OUTPUT"
 
   make_dist:
     name: Make releasemode distribution
@@ -63,3 +92,5 @@ jobs:
       releasemode: true
       run_tests: true
       version: "${{ needs.get_version.outputs.version }}"
+      patch: ${{ inputs.patch == true }}
+      doi: "${{ needs.get_version.outputs.doi }}"
