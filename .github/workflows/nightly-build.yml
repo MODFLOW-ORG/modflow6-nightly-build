@@ -34,60 +34,17 @@ on:
   # see https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
 jobs:
-  get_version:
-    name: Get current version
-    runs-on: ubuntu-22.04
-    defaults:
-      run:
-        shell: bash -l {0}
-    outputs:
-      version: ${{ steps.get_version.outputs.version }}
-      sha: ${{ steps.get_version.outputs.sha }}
-    steps:
-
-      - name: Checkout repo
-        uses: actions/checkout@v7
-        with:
-          repository: MODFLOW-ORG/modflow6-nightly-build
-
-      - name: Checkout modflow6
-        uses: actions/checkout@v7
-        with:
-          repository: ${{ github.repository_owner }}/modflow6
-          path: modflow6
-
-      - name: Setup Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.11'
-
-      - name: Install Python packages
-        run: pip install -r requirements.txt
-      
-      - name: Get version
-        working-directory: modflow6/distribution
-        id: get_version
-        run: |
-          ver=$(python update_version.py -g)
-          echo "version=${ver}" >> "$GITHUB_OUTPUT"
-          # pin the commit the version was read from, so the build and notes match it
-          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-
   make_dist:
     name: Make developmode distribution
-    needs: get_version
     uses: MODFLOW-ORG/modflow6/.github/workflows/release.yml@develop
     with:
-      ref: ${{ needs.get_version.outputs.sha }}
+      ref: develop
       releasemode: false
       run_tests: true
-      version: ${{ needs.get_version.outputs.version }}
 
   release:
     name: Create release
-    needs:
-      - get_version
-      - make_dist
+    needs: make_dist
     runs-on: ubuntu-22.04
     defaults:
       run:
@@ -104,7 +61,7 @@ jobs:
       - name: Checkout modflow6
         uses: actions/checkout@v7
         with:
-          repository: MODFLOW-ORG/modflow6
+          repository: ${{ github.repository_owner }}/modflow6
           path: modflow6
           ref: ${{ needs.make_dist.outputs.sha }}
 

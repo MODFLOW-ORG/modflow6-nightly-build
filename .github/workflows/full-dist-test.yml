@@ -32,6 +32,7 @@ jobs:
         shell: bash -l {0}
     outputs:
       version: ${{ steps.get_version.outputs.version }}
+      sha: ${{ steps.get_version.outputs.sha }}
       doi: ${{ steps.get_doi.outputs.doi }}
     steps:
 
@@ -43,7 +44,7 @@ jobs:
       - name: Checkout modflow6
         uses: actions/checkout@v7
         with:
-          repository: MODFLOW-ORG/modflow6
+          repository: ${{ github.repository_owner }}/modflow6
           path: modflow6
 
       - name: Setup Python
@@ -68,6 +69,8 @@ jobs:
             ver=$(python update_version.py -g --release)
           fi
           echo "version=${ver}" >> "$GITHUB_OUTPUT"
+          # pin the commit the version and doi were computed from, so the build matches
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Get DOI
         if: inputs.patch != true
@@ -88,7 +91,7 @@ jobs:
     needs: get_version
     uses: MODFLOW-ORG/modflow6/.github/workflows/release.yml@develop
     with:
-      branch: develop
+      ref: ${{ needs.get_version.outputs.sha }}
       releasemode: true
       run_tests: true
       version: "${{ needs.get_version.outputs.version }}"
